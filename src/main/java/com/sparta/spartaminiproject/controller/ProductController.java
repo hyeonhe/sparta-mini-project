@@ -16,6 +16,6 @@ public class ProductController {
 
     @PostMapping("/add")
     public void insertProduct(@RequestBody ProductDto productDto) {
-        productService.createProduct(productDto.toEntity());
+        productService.createProduct(productDto);
     }
 }
