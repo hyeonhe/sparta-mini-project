@@ -1,13 +1,11 @@
 package com.sparta.spartaminiproject.entity;
 
-import com.sparta.spartaminiproject.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "product")
+@Table
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -28,4 +26,10 @@ public class Product {
 
     @Column(nullable = false)
     private boolean isActive;
+
+    public void updateInfo(String name, Integer price, Integer stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
 }

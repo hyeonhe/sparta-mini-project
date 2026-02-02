@@ -1,6 +1,7 @@
 package com.sparta.spartaminiproject.service;
 
 import com.sparta.spartaminiproject.dto.ProductDto;
+import com.sparta.spartaminiproject.dto.ProductUpdateDto;
 import com.sparta.spartaminiproject.entity.Product;
 import com.sparta.spartaminiproject.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -17,5 +18,12 @@ public class ProductServiceImpl implements ProductService {
     public void createProduct(ProductDto productDto) {
         Product product = productDto.toEntity();
         productRepository.save(product);
+    }
+
+    @Override
+    @Transactional
+    public void updateProduct(ProductUpdateDto productDto) throws Exception {
+        Product product = productRepository.findById(productDto.getProductId()).orElseThrow(() -> new Exception("상품이 존재하지 않습니다."));
+        product.updateInfo(productDto.getName(), productDto.getPrice(), productDto.getStock());
     }
 }
