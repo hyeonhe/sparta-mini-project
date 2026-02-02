@@ -4,9 +4,12 @@ import com.sparta.spartaminiproject.dto.ProductCreateDto;
 import com.sparta.spartaminiproject.dto.ProductUpdateDto;
 import com.sparta.spartaminiproject.entity.Product;
 import com.sparta.spartaminiproject.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -40,4 +43,11 @@ public class ProductServiceImpl implements ProductService {
     public Product getProduct(Long productId) throws Exception {
         return productRepository.findById(productId).orElseThrow(() -> new Exception("상품이 존재하지 않습니다."));
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Product> getProductList(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
 }
