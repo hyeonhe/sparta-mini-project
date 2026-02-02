@@ -26,4 +26,12 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(productDto.getProductId()).orElseThrow(() -> new Exception("상품이 존재하지 않습니다."));
         product.updateInfo(productDto.getName(), productDto.getPrice(), productDto.getStock());
     }
+
+    @Override
+    @Transactional
+    public Product disableProduct(Long productId) throws Exception {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new Exception("상품이 존재하지 않습니다."));
+        product.disableProduct();
+        return product;
+    }
 }

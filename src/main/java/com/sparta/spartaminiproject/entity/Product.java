@@ -32,4 +32,8 @@ public class Product {
         this.price = price;
         this.stock = stock;
     }
+
+    public void disableProduct() {
+        this.isActive = false;
+    }
 }
