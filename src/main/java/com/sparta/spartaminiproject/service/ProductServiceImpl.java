@@ -34,4 +34,10 @@ public class ProductServiceImpl implements ProductService {
         product.disableProduct();
         return product;
     }
+
+    @Override
+    @Transactional
+    public Product getProduct(Long productId) throws Exception {
+        return productRepository.findById(productId).orElseThrow(() -> new Exception("상품이 존재하지 않습니다."));
+    }
 }

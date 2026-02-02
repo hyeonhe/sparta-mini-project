@@ -41,4 +41,16 @@ public class ProductController {
             return ResponseEntity.badRequest().body("상품 삭제 실패: " + e.getMessage());
         }
     }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getProduct(@PathVariable Long productId) {
+        Product product;
+        try {
+            product = productService.getProduct(productId);
+            return ResponseEntity.ok(product);
+        } catch (Exception e) {
+            log.error("상품 조회 실패: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("상품 조회 실패: " + e.getMessage());
+        }
+    }
 }
