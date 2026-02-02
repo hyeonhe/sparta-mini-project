@@ -13,12 +13,14 @@ public class ProductDto {
     private String name;
     private Integer price;
     private Integer stock;
+    private boolean isActive;
 
     public Product toEntity() {
         return Product.builder()
                 .name(name)
                 .price(price)
                 .stock(stock)
+                .isActive(isActive)
                 .build();
     }
 }

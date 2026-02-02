@@ -26,11 +26,6 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    public ProductDto toDto() {
-        return ProductDto.builder()
-                .name(name)
-                .price(price)
-                .stock(stock)
-                .build();
-    }
+    @Column(nullable = false)
+    private boolean isActive;
 }
