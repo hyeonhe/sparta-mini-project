@@ -1,6 +1,6 @@
 package com.sparta.spartaminiproject.controller;
 
-import com.sparta.spartaminiproject.dto.ProductDto;
+import com.sparta.spartaminiproject.dto.ProductCreateDto;
 import com.sparta.spartaminiproject.dto.ProductUpdateDto;
 import com.sparta.spartaminiproject.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,10 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/add")
-    public void insertProduct(@RequestBody ProductDto productDto) {
-        productService.createProduct(productDto);
+    public void insertProduct(@RequestBody ProductCreateDto productCreateDto) {
+        productService.createProduct(productCreateDto);
+    }
+
     @PostMapping("/update")
     public void updateProduct(@RequestBody ProductUpdateDto productDto) {
         try {

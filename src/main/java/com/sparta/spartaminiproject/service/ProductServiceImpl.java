@@ -1,6 +1,6 @@
 package com.sparta.spartaminiproject.service;
 
-import com.sparta.spartaminiproject.dto.ProductDto;
+import com.sparta.spartaminiproject.dto.ProductCreateDto;
 import com.sparta.spartaminiproject.dto.ProductUpdateDto;
 import com.sparta.spartaminiproject.entity.Product;
 import com.sparta.spartaminiproject.repository.ProductRepository;
@@ -15,7 +15,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void createProduct(ProductDto productDto) {
+    public void createProduct(ProductCreateDto productDto) {
         Product product = productDto.toEntity();
         productRepository.save(product);
     }
