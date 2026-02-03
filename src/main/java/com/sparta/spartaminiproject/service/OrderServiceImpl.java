@@ -1,6 +1,7 @@
 package com.sparta.spartaminiproject.service;
 
 import com.sparta.spartaminiproject.dto.OrderCreateDto;
+import com.sparta.spartaminiproject.dto.OrderDto;
 import com.sparta.spartaminiproject.entity.Order;
 import com.sparta.spartaminiproject.entity.Product;
 import com.sparta.spartaminiproject.repository.OrderRepository;
@@ -27,6 +28,20 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.save(order);
         return order;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrderDto getOrder(Long orderId) throws Exception {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new Exception("주문내역이 존재하지 않습니다."));
+
+        return OrderDto.builder()
+                .orderId(order.getOrderId())
+                .productId(order.getProduct().getProductId())
+                .name(order.getProduct().getName())
+                .quantity(order.getQuantity())
+                .totalAmount(order.getTotalAmount())
+                .build();
     }
 
 }
