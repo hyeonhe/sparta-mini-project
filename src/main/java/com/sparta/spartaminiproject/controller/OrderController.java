@@ -17,8 +17,15 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/add")
-    public Order insertOrder(@RequestBody OrderCreateDto orderDto) {
-        return orderService.createOrder(orderDto);
+    public ResponseEntity<?> insertOrder(@RequestBody OrderCreateDto orderDto) {
+        Order order;
+        try {
+            order = orderService.createOrder(orderDto);
+            return ResponseEntity.ok(order);
+        } catch (Exception e) {
+            log.error("주문 실패: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("주문 실패: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{orderId}")

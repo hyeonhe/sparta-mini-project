@@ -18,15 +18,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order createOrder(OrderCreateDto orderDto) {
+    public Order createOrder(OrderCreateDto orderDto) throws Exception {
         Product product = productRepository.findByProductId(orderDto.getProductId());
+
+        if (!product.isActive()) throw new Exception("판매중지된 상품입니다.");
+        product.decreaseStock(orderDto.getQuantity());
+
         Order order = Order.builder()
                 .product(product)
                 .quantity(orderDto.getQuantity())
                 .totalAmount(product.getPrice() * orderDto.getQuantity())
                 .build();
 
+        productRepository.save(product);
         orderRepository.save(order);
+
         return order;
     }
 
